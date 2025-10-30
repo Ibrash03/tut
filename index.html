@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 причин, почему красивая</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-image 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 5vw;
+            margin-bottom: 5vw;
+        }
+
+        .reason-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4vw;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 4vw;
+            max-width: 90%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        .btn {
+            margin-top: 5vw;
+            padding: 3vw 6vw;
+            font-size: 4vw;
+            background-color: #ff5e78;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e04e66;
+        }
+
+        .final-message {
+            font-size: 6vw;
+            font-weight: bold;
+            display: none;
+            color: #fff5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>100 причин, почему ты Диан такая красивая 💖</h1>
+    <div class="reason-box" id="reasonBox">Нажми на кнопку!</div>
+    <button class="btn" onclick="nextReason()">Следующая причина</button>
+    <div class="final-message" id="finalMessage">Ты самая красивая, Диана! 💕</div>
+
+    <audio id="backgroundMusic" src="music.mp3" loop></audio>
+
+    <script>
+        const reasons = [
+            "Твои глаза как две звезды ✨",
+            "Твоя улыбка делает этот мир ярче 😊",
+            "Твои волосы прекрасны в любое время 💇‍♀️",
+            "Ты излучаешь свет и доброту 🌟",
+            "Твои губы похожи на лепестки роз 🌹",
+            "Ты выглядишь красиво без макияжа 💕",
+            "У тебя самая очаровательная походка 🚶‍♀️"
+        ];
+
+        const backgrounds = [
+            "url('img1.jpg')",
+            "url('img2.jpg')",
+            "url('img3.jpg')",
+            "url('img4.jpg')"
+        ];
+
+        let index = 0;
+        let bgIndex = 0;
+        const music = document.getElementById("backgroundMusic");
+        const body = document.body;
+
+        function nextReason() {
+            // Запуск музыки при первом нажатии (для мобильных)
+            if (music.paused) {
+                music.play().catch(err => console.log("Нажмите экран для включения музыки"));
+            }
+
+            const reasonBox = document.getElementById("reasonBox");
+            const finalMessage = document.getElementById("finalMessage");
+
+            if (index < reasons.length) {
+                reasonBox.textContent = reasons[index];
+                reasonBox.classList.add("show");
+                index++;
+
+                // Смена фона
+                bgIndex = (bgIndex + 1) % backgrounds.length;
+                body.style.backgroundImage = backgrounds[bgIndex];
+
+            } else {
+                reasonBox.style.display = "none";
+                finalMessage.style.display = "block";
+            }
+        }
+
+        // Установка начального фона
+        body.style.backgroundImage = backgrounds[bgIndex];
+    </script>
+</body>
+</html>
